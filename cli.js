@@ -18,8 +18,10 @@ class CLI {
             }  
         ])
         .then((data) => {
-            console.log("past the .then")
             return selectDatabase(data)
+          })
+        .then(() => {
+          return this.next()
         })
         .catch((err) => {
         console.log(err);
@@ -35,11 +37,16 @@ class CLI {
             message: 'Would You Like To Do Anything Else?',
             name: 'continue'
         }
-    ])
-    .then((data) => {
-    console.log
+    ]).then((data) => {
+      // console.log(data)
+      if (data.continue === "Yes") {
+        return this.run()
+      } else {
+        console.log('Goodbye! Please press Ctrl + C to turn off the server.')
+        return 
+      }
     })
-    }
+  }
 }
 
 

@@ -1,12 +1,11 @@
 const express = require('express');
 require('console.table')
 const mysql = require('mysql2');
-// const CLI = require('./cli')
+
 
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-// const cli = new CLI()
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
@@ -26,24 +25,29 @@ const db = mysql.createConnection(
 );
 
 function selectDatabase(data) {
-  // console.log(data)
+//View All Departments
 if (data.selection === 'View All Departments') {
 db.query('SELECT * FROM departments', function (err, results) {
     console.table(results);
-    // cli.next()
   });
  }
-
+//View All Employees
  if (data.selection === 'View All Employees') {
   db.query('SELECT * FROM employees', function (err, results) {
     console.table(results);
   })
  }
+ //View All Roles
  if (data.selection === 'View All Roles') {
   db.query('SELECT * FROM roles', function (err, results) {
     console.table(results);
   })
  }
+ //Add Employee
+ //Update Employee Role
+ //Add Role
+ //Add Department
+ 
 }
 
 app.use((req, res) => {
