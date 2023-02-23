@@ -1,11 +1,13 @@
 const inquirer = require('inquirer')
-const { selectDatabase } = require('./directory')
+const { selectDatabase, newEmployee } = require('./directory')
 
 
 class CLI {
   constructor() {
-    this.selection = ''
-    this.continue = ''
+    this.selection = '',
+    this.continue = '',
+    this.employeeName = '',
+    this.dataObj = []
   }
     run() {
       return inquirer
@@ -18,7 +20,18 @@ class CLI {
             }  
         ])
         .then((data) => {
+          console.log(data)
+          if (data.selection === 'Add Employee') {
+            return this.addEmployee()
+          }
+          if (data.selection === 'View All Employees' || 
+              data.selection === 'View All Roles' || 
+              data.selection ===  'View All Departments') { 
+
             return selectDatabase(data)
+             } else if (data.selection === 'Add Role') {
+              return this.addRole(data)
+          }
           })
         .then(() => {
           return this.next()
@@ -44,9 +57,26 @@ class CLI {
       } else {
         console.log('Goodbye! Please press Ctrl + C to turn off the server.')
         return 
-      }
-    })
-  }
+        }
+      })
+    }
+    addEmployee() {
+      return inquirer
+        .prompt([
+          {
+            type: 'input',
+            message: "What Is The Employee's First Name?",
+            name: 'employeeFirstName'
+          },{
+            type: 'input',
+            message: "What Is The Employee's Last Name?",
+            name: 'employeeLastName'
+          }
+        ]).then((data) => {
+          console.log(data)
+          return newEmployee(data)
+        }).then(() => this.next())
+        }
 }
 
 

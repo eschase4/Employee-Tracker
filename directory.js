@@ -41,14 +41,25 @@ db.query('SELECT * FROM departments', function (err, results) {
  if (data.selection === 'View All Roles') {
   db.query('SELECT * FROM roles', function (err, results) {
     console.table(results);
+    console.log(data.continue)
   })
- }
- //Add Employee
- //Update Employee Role
- //Add Role
- //Add Department
- 
 }
+}
+//Update Employee Role
+//Add Role
+//Add Department
+
+//Add Employee
+function newEmployee(data) {
+  console.log('hit newEmployee function')
+  db.query(
+  `INSERT INTO employees (first_name, last_name)
+  VALUES (${data.employeeFirstName}, ${data.employeeLastName});`
+  )
+}
+
+
+
 
 app.use((req, res) => {
     res.status(404).end();
@@ -59,4 +70,4 @@ app.listen(PORT, () => {
   });
 
   // console.log(db)
-  module.exports = { selectDatabase, db }
+  module.exports = { selectDatabase, db, newEmployee }
