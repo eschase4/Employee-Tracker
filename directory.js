@@ -41,9 +41,12 @@ db.query('SELECT * FROM departments', function (err, results) {
  if (data.selection === 'View All Roles') {
   db.query('SELECT * FROM roles', function (err, results) {
     console.table(results);
-    console.log(data.continue)
+    // console.log(data.continue)
   })
-}
+ }
+//  if (data.selection === 'Add Employee') {
+//   return newEmployee()
+//  }
 }
 //Update Employee Role
 //Add Role
@@ -51,15 +54,15 @@ db.query('SELECT * FROM departments', function (err, results) {
 
 //Add Employee
 function newEmployee(data) {
-  console.log('hit newEmployee function')
   db.query(
-  `INSERT INTO employees (first_name, last_name)
-  VALUES (${data.employeeFirstName}, ${data.employeeLastName});`
-  )
+    `INSERT INTO employees (id, first_name, last_name)
+    VALUES ('${data.employeeFirstName}', '${data.employeeLastName}');`, function (err, results) {
+      console.log("New Employee Added")
+      console.table(results)
+    })
+  console.log('hit newEmployee function')
+  console.log(data.employeeLastName)
 }
-
-
-
 
 app.use((req, res) => {
     res.status(404).end();
