@@ -50,10 +50,20 @@ class CLI {
             type: 'input',
             message: "What Is The Employee's Last Name?",
             name: 'employeeLastName'
+          }, {
+            type: 'list',
+            choices: ['Salesman', 'Accountant', 'Secratary', 'Hole Digger', 'Hole Manager', 'CEO'],
+            message: "What Is There Role?",
+            name: 'role'
+          }, {
+            type: 'list',
+            choices: ['John Doe'],
+            message: "Who is their manager?",
+            name: 'manager'
           }
         ]).then((data) => {
           console.log(data, "cli line 55")
-          return newEmployee(data)
+          newEmployee(data)
         })
         // .then(() => {
         //   return this.next()

@@ -27,19 +27,19 @@ const db = mysql.createConnection(
 function selectDatabase(data) {
 //View All Departments
 if (data.selection === 'View All Departments') {
-db.query('SELECT * FROM departments', function (err, results) {
+db.query('SELECT * FROM departments', (err, results) => {
     console.table(results);
   });
  }
 //View All Employees
  if (data.selection === 'View All Employees') {
-  db.query('SELECT * FROM employees', function (err, results) {
+  db.query('SELECT * FROM employees', (err, results) => {
     console.table(results);
   })
  }
  //View All Roles
  if (data.selection === 'View All Roles') {
-  db.query('SELECT * FROM roles', function (err, results) {
+  db.query('SELECT * FROM roles', (err, results) => {
     console.table(results);
     // console.log(data.continue)
   })
@@ -54,14 +54,15 @@ db.query('SELECT * FROM departments', function (err, results) {
 
 //Add Employee
 function newEmployee(data) {
-  db.query(
-    `INSERT INTO employees (id, first_name, last_name)
-    VALUES ('${data.employeeFirstName}', '${data.employeeLastName}');`, function (err, results) {
+  return db.execute(
+    `INSERT INTO employees (first_name, last_name, role_id, manager_id)
+    VALUES ('${data.employeeFirstName}', '${data.employeeLastName}', '1', '1'); 
+    SELECT * FROM employees;`, function (err, results, feilds) {
       console.log("New Employee Added")
       console.table(results)
     })
-  console.log('hit newEmployee function')
-  console.log(data.employeeLastName)
+  // console.log('hit newEmployee function')
+  // console.log(data.employeeLastName)
 }
 
 app.use((req, res) => {
