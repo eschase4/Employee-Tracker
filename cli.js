@@ -32,7 +32,8 @@ class CLI {
           }
         })
         .then(() => {
-          return this.next()
+          this.next()
+          console.log('')
         })
         .catch((err) => {
         console.log(err);
