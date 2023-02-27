@@ -2,9 +2,7 @@ const express = require('express');
 require('console.table')
 const mysql = require('mysql2');
 const db = require('../config/connection')
-
-
-  
+ 
   function chooseTable(data) {
     //View All Departments
     if (data.selection === 'View All Departments') {

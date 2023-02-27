@@ -1,12 +1,10 @@
 const inquirer = require('inquirer')
 const { chooseTable } = require('./directory/chooseTable')
 const mysql = require('mysql2');
-const { newEmployee }  = require('./directory/employeeManager')
-const { newRole } = require('./directory/roleManager')
-const { newDepartment } = require('./directory/departmentManager')
+const { newEmployee, employeeArr }  = require('./directory/employeeManager')
+const { newRole, roleArr } = require('./directory/roleManager')
+const { newDepartment, departmentArr } = require('./directory/departmentManager')
 
-const roleArr = ['Salesman', 'Accountant', 'Secratary', 'Hole Digger', 'Hole Manager', 'CEO', 'Customer Service']
-const departmentArr = ['Accounting', 'Sales', 'HR', 'Management', 'Customer Service', 'Factory Workers'] 
 const optionsArr = ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles',  'Add Role', 'View All Departments', 'Add Department', 'Quit']
 
 class CLI {
@@ -74,11 +72,11 @@ class CLI {
             name: 'manager'
           }
         ]).then((data) => {
-          console.log(data, "cli line 68")
+          console.log(data, "cli line 75")
           newEmployee(data)
         }).catch((err) => {
           console.log(err);
-          console.log("js69 Somethings not right...")
+          console.log("js79 Somethings not right...")
           })
     }
     addRole() {

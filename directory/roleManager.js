@@ -2,7 +2,18 @@ require('console.table')
 const mysql = require('mysql2');
 const db = require('../config/connection')
 
-  //Add Role
+let roleArr = []
+    db.query(`SELECT title FROM roles;`, function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    for (i = 0; i < results.length; i++) {
+      roleArr.push(results[i].title)
+    }
+    console.log(roleArr)
+  })
+
+
 function newRole(data) {
     let department;
       switch (data.roleDepartment) {
@@ -36,4 +47,4 @@ function newRole(data) {
       })
     }
     
-module.exports = { newRole }
+module.exports = { newRole, roleArr }

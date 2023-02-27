@@ -1,7 +1,17 @@
-const express = require('express');
 require('console.table')
 const mysql = require('mysql2');
 const db = require('../config/connection')
+
+let employeeArr = []
+    db.query(`SELECT first_name FROM employees;`, function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    for (i = 0; i < results.length; i++) {
+      employeeArr.push(results[i].title)
+    }
+    console.log(employeeArr)
+  })
 
 
   //Add Employee
@@ -43,4 +53,4 @@ function newEmployee(data) {
       })
     }
     
-    module.exports = { newEmployee }
+    module.exports = { newEmployee, employeeArr }

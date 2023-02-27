@@ -1,5 +1,17 @@
 require('console.table')
+const mysql = require('mysql2');
 const db = require('../config/connection')
+
+let departmentArr = []
+    db.query(`SELECT department FROM departments;`, function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    for (i = 0; i < results.length; i++) {
+      departmentArr.push(results[i].title)
+    }
+    console.log(departmentArr)
+  })
 
 function newDepartment(data) {
       const sql =  `INSERT INTO departments (department)
@@ -13,4 +25,4 @@ function newDepartment(data) {
       })
     }
     
-module.exports = { newDepartment }
+module.exports = { newDepartment, departmentArr }
