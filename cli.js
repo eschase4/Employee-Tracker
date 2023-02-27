@@ -1,6 +1,13 @@
 const inquirer = require('inquirer')
-const { selectDatabase, newEmployee } = require('./directory')
+const { chooseTable } = require('./directory/chooseTable')
 const mysql = require('mysql2');
+const { newEmployee }  = require('./directory/employeeManager')
+const { newRole } = require('./directory/roleManager')
+const { newDepartment } = require('./directory/departmentManager')
+
+const roleArr = ['Salesman', 'Accountant', 'Secratary', 'Hole Digger', 'Hole Manager', 'CEO', 'Customer Service']
+const departmentArr = ['Accounting', 'Sales', 'HR', 'Management', 'Customer Service', 'Factory Workers'] 
+const optionsArr = ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles',  'Add Role', 'View All Departments', 'Add Department', 'Quit']
 
 class CLI {
   constructor() {
@@ -14,7 +21,7 @@ class CLI {
         .prompt([
             {
                 type: 'list',
-                choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles',  'Add Role', 'View All Departments', 'Add Department', 'Quit'],
+                choices: optionsArr,
                 message: 'What Would You Like To Do?',
                 name: 'selection'
             }  
@@ -24,11 +31,15 @@ class CLI {
           if (data.selection === 'View All Employees' || 
               data.selection === 'View All Roles' || 
               data.selection ===  'View All Departments') { 
-                return selectDatabase(data)
-              } else if (data.selection === 'Add Employee') {
-                return this.addEmployee(data)
-              } else if (data.selection === 'Add Role') {
-                return this.addRole(data)
+                return chooseTable(data)
+          } else if (data.selection === "Add Employee") {
+                return this.addEmployee()
+          } else if (data.selection === "Add Role") {
+                return this.addRole()
+          } else if (data.selection === "Add Department") {
+                return this.addDepartment()
+          } else if (data.selection === "Update Employee Role") {
+                return this.addDepartment()
           }
         })
         .then(() => {
@@ -53,8 +64,8 @@ class CLI {
             name: 'employeeLastName'
           }, {
             type: 'list',
-            choices: ['Salesman', 'Accountant', 'Secratary', 'Hole Digger', 'Hole Manager', 'CEO'],
-            message: "What Is There Role?",
+            choices: roleArr,
+            message: "What Is Their Role?",
             name: 'role'
           }, {
             type: 'list',
@@ -63,15 +74,50 @@ class CLI {
             name: 'manager'
           }
         ]).then((data) => {
-          console.log(data, "cli line 55")
+          console.log(data, "cli line 68")
           newEmployee(data)
-        })
-        // .then(() => {
-        //   return this.next()
-        // })
-        .catch((err) => {
+        }).catch((err) => {
           console.log(err);
-          console.log("Somethings not right...")
+          console.log("js69 Somethings not right...")
+          })
+    }
+    addRole() {
+      return inquirer
+        .prompt([
+        { type: 'input',
+          message: "What new role would you like to create?",
+          name: 'inputRole'
+        }, {
+          type: 'input',
+          message: 'What is this roles salary?',
+          name: 'inputSalary'
+        }, {
+          type: 'list',
+          choices: departmentArr,
+          message: 'What department is this role in?',
+          name: 'roleDepartment'
+        }
+        ]).then((data) => {
+          console.log(data, "cli line 89")
+          newRole(data)
+        }).catch((err) => {
+          console.log(err);
+          console.log("js76 Somethings not right...")
+          })
+    }
+    addDepartment() {
+      return inquirer
+        .prompt ([
+          { type: 'input',
+            message: "What is the name of the department you'd like to add?",
+            name: 'inputDepartment'
+          }
+        ]).then((data) => {
+          console.log(data, "cli line 111")
+          newDepartment(data)
+        }).catch((err) => {
+          console.log(err);
+          console.log("js115 Somethings not right...")
           })
     }
     next() {
