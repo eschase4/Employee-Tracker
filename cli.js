@@ -96,11 +96,11 @@ class CLI {
           name: 'roleDepartment'
         }
         ]).then((data) => {
-          console.log(data, "cli line 89")
+          console.log(data, "cli line 99")
           newRole(data)
         }).catch((err) => {
           console.log(err);
-          console.log("js76 Somethings not right...")
+          console.log("js103 Somethings not right...")
           })
     }
     addDepartment() {
@@ -111,11 +111,11 @@ class CLI {
             name: 'inputDepartment'
           }
         ]).then((data) => {
-          console.log(data, "cli line 111")
+          console.log(data, "cli line 114")
           newDepartment(data)
         }).catch((err) => {
           console.log(err);
-          console.log("js115 Somethings not right...")
+          console.log("js118 Somethings not right...")
           })
     }
     updateEmployeeRole() {

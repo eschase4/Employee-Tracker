@@ -31,7 +31,7 @@ Once that is complete, type 'node index.js' to begin
 <a name="usage"></a>
 ## Usage
 
-Once you enter 'node index.js' into your terminal, you should be prompted with an array of options. For further detail on how to use this application, please watch this video
+Once you enter 'node index.js' into your terminal, you should be prompted with an array of options. For further detail on how to use this application, please watch this video: https://youtu.be/KCgPawdRn8M
 
 <a name="contribution"></a>
 ## How To Contribute
