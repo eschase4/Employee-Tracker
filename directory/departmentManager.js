@@ -8,9 +8,8 @@ let departmentArr = []
       console.log(err)
     }
     for (i = 0; i < results.length; i++) {
-      departmentArr.push(results[i].title)
+      departmentArr.push(results[i].department)
     }
-    console.log(departmentArr)
   })
 
 function newDepartment(data) {

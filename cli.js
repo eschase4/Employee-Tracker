@@ -1,7 +1,7 @@
 const inquirer = require('inquirer')
 const { chooseTable } = require('./directory/chooseTable')
 const mysql = require('mysql2');
-const { newEmployee, employeeArr }  = require('./directory/employeeManager')
+const { newEmployee, employeeArr, newEmployeeRole }  = require('./directory/employeeManager')
 const { newRole, roleArr } = require('./directory/roleManager')
 const { newDepartment, departmentArr } = require('./directory/departmentManager')
 
@@ -37,7 +37,7 @@ class CLI {
           } else if (data.selection === "Add Department") {
                 return this.addDepartment()
           } else if (data.selection === "Update Employee Role") {
-                return this.addDepartment()
+                return this.updateEmployeeRole()
           }
         })
         .then(() => {
@@ -67,7 +67,7 @@ class CLI {
             name: 'role'
           }, {
             type: 'list',
-            choices: ['John Doe'],
+            choices: employeeArr,
             message: "Who is their manager?",
             name: 'manager'
           }
@@ -118,6 +118,32 @@ class CLI {
           console.log("js115 Somethings not right...")
           })
     }
+    updateEmployeeRole() {
+      return inquirer
+        .prompt([
+          { type: 'list',
+            choices: employeeArr,
+            message: "Which employees role would you like to update?",
+            name: 'chooseEmployee'
+          }, {
+            type: 'list',
+            choices: roleArr,
+            message: 'Which role would you like to reassign them to?',
+            name: 'chooseNewRole'
+          }, {
+            type: 'list',
+            choices: employeeArr,
+            message: 'Who is their new manager?',
+            name: 'newManager'
+          }
+        ]).then((data) => {
+          console.log(data, "cli line 135")
+          newEmployeeRole(data)
+        }).catch((err) => {
+          console.log(err);
+          console.log("js139 Somethings not right...")
+          })
+    }
     next() {
       return inquirer
         .prompt([
@@ -139,8 +165,6 @@ class CLI {
         })
     }
 }
-
-
 
 module.exports = CLI
 

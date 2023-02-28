@@ -8,12 +8,12 @@ VALUES ('Accounting'),
 
 INSERT INTO roles (title, salary, department_id)
 VALUES ('Salesman', 123995, 2),
-       ('Accountant', 231223, 1),
+       ('Accountant', 76000, 1),
        ('Secratary', 50000, 5),
        ('Hole Digger', 31532, 6),
-       ('Hole Manager', 314, 4),
-       ('CEO', 314, 4),
-       ('Complaint Listener', 123, 3);
+       ('Hole Manager', 1000000, 4),
+       ('CEO', 12, 4),
+       ('Complaint Listener', 32000, 3);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ('John', 'Doe', 6, 1),
